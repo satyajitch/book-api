@@ -49,10 +49,10 @@ jobs:
         run: snyk test --file = pom.xml --sarif > snyk-sca.sarif
         continue-on-error: true
 
-      - name: Adding the sarif result to Snyk GUI
-        run: snyk monitor
-
       - name: Upload SARIF to GitHub
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: snyk-sca.sarif
+
+      - name: Adding the sarif result to Snyk GUI
+        run: snyk monitor

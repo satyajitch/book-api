@@ -24,11 +24,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Node (for Snyk CLI)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
       - name: Install Snyk
         run: npm install -g snyk
 
@@ -43,16 +38,6 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: snyk.sarif
-
-
-      - name: Run Snyk SCA Scan
-        run: snyk test --file = pom.xml --sarif > snyk-sca.sarif
-        continue-on-error: true
-
-      - name: Upload SARIF to GitHub
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: snyk-sca.sarif
 
       - name: Adding the sarif result to Snyk GUI
         run: snyk monitor

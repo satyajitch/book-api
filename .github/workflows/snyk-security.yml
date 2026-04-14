@@ -37,3 +37,13 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: snyk.sarif
+
+
+      - name: Run Snyk SCA Scan
+        run: snyk test --sarif > snyk-sca.sarif
+        continue-on-error: true
+
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: snyk-sca.sarif
